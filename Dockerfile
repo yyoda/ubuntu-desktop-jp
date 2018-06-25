@@ -35,10 +35,6 @@ RUN apt-get install -y \
       ibus-anthy \
       fonts-takao
 
-# Clean up
-RUN apt-get clean && \
-    rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
-
 # Install noVNC
 RUN mkdir -p /opt/noVNC/utils/websockify && \
     wget -qO- "http://github.com/novnc/noVNC/tarball/master" | tar -zx --strip-components=1 -C /opt/noVNC && \
@@ -50,6 +46,13 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > mic
     mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg && \
     sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list' && \
     apt-get update && apt-get install -y code
+
+# Install Browser
+RUN apt-get install -y firefox
+
+# Clean up
+RUN apt-get clean && \
+    rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 # Rename user directories Japanese to English.
 RUN LANG=C xdg-user-dirs-update --force
