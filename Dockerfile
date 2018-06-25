@@ -35,12 +35,6 @@ RUN apt-get install -y \
       ibus-anthy \
       fonts-takao
 
-# Install noVNC
-RUN mkdir -p /opt/noVNC/utils/websockify && \
-    wget -qO- "http://github.com/novnc/noVNC/tarball/master" | tar -zx --strip-components=1 -C /opt/noVNC && \
-    wget -qO- "https://github.com/novnc/websockify/tarball/master" | tar -zx --strip-components=1 -C /opt/noVNC/utils/websockify && \
-    ln -s /opt/noVNC/vnc.html /opt/noVNC/index.html
-
 # Install Visual Studio Code
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg && \
     mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg && \
@@ -57,6 +51,5 @@ RUN apt-get clean && \
 # Rename user directories Japanese to English.
 RUN LANG=C xdg-user-dirs-update --force
 
-EXPOSE 8080
 COPY supervisord/* /etc/supervisor/conf.d/
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
