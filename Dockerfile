@@ -24,7 +24,6 @@ RUN apt-get install -y \
       wget \
       curl \
       net-tools \
-      vim-tiny \
       vim \
       git \
       xfce4-terminal
@@ -47,9 +46,6 @@ RUN apt-get install -y firefox
 # Clean up
 RUN apt-get clean && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
-
-# Rename user directories Japanese to English.
-RUN LANG=C xdg-user-dirs-update --force
 
 COPY supervisord/* /etc/supervisor/conf.d/
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
