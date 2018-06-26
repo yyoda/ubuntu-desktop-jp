@@ -19,5 +19,5 @@ Ubuntuデスクトップ環境を、クライアントVNC上で利用するこ�
 
 ```sh
 docker build -t ubuntux .
-docker run -d -it -p 5900:5900 ubuntux
+docker run --name ubuntux -d -it -p 5900:5900 ubuntux
 ```
